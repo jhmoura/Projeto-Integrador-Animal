@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede Animal - Mural de Achados e Perdidos</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-topbar': '#8DAA71',
+                        'brand-nav': '#FDF6E3',
+                        'brand-hero': '#B5CBA9',
+                        'brand-bg': '#F9F7F1',
+                        'brand-orange': '#FF7A00',
+                        'brand-orange-hover': '#E66E00',
+                        'status-lost': '#FF6600',
+                        'status-found': '#008B8B',
+                    },
+                    backgroundImage: {
+                        // A subtle pattern to mimic the paws in the background, using base64 SVG for self-containment
+                        'paw-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTEwLjUgMTVjMi44IDAgNS0yLjIgNS01czIyLjItNS01LTVyLTIuMi01LTUgMi4yLTUgNS01IDV6IiBmaWxsPSIjMDAwIi8+PC9zdmc+')"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.brand-bg');
+            /* Apply pattern if desired, sticking to solid color for cleaner look based on prompt */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Top Bar -->
+    <div class="bg-brand-topbar text-white text-xs sm:text-sm py-2 px-4 flex justify-between items-center">
+        <div><strong>REDE ANIMAL:</strong> Mural de Animais Perdidos e Encontrados</div>
+        <div class="flex items-center gap-2 cursor-pointer hover:underline">
+            <i class="fas fa-sign-in-alt"></i> Login <i class="fas fa-caret-down text-xs"></i>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="bg-brand-nav py-4 px-6 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+        <div class="flex items-center gap-3">
+            <div class="text-4xl text-[#A67B5B]"><i class="fas fa-paw"></i></div>
+            <div class="flex flex-col">
+                <h1 class="text-3xl font-extrabold tracking-tight text-[#4A7C59] leading-tight" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.1);">REDE ANIMAL</h1>
+                <span class="text-xs font-medium text-gray-600">Juntos, trazemos eles de volta para casa</span>
+            </div>
+        </div>
+
+        <ul class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm font-semibold text-gray-800">
+            <li class="bg-[#B5CBA9] px-3 py-1 rounded-md text-gray-900 cursor-pointer">Home</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition">Encontrados</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition">Perdidos</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition">Como Funciona</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition" onclick="openModal()">Postar um Anúncio</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition">Blog</li>
+            <li class="px-3 py-1 hover:text-brand-orange cursor-pointer transition">Login/Cadastro</li>
+        </ul>
+    </nav>
+
+    <!-- Hero / Banner Section -->
+    <div class="bg-brand-hero py-8 px-4 text-center shadow-inner relative z-0">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 drop-shadow-sm">MURAL DE ANIMAIS ENCONTRADOS & PERDIDOS</h2>
+
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div class="relative w-full sm:w-2/3 max-w-xl">
+                <input type="text" placeholder="Busque por raça, cidade, data..."
+                       class="w-full py-3 px-5 pr-12 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-topbar shadow-sm">
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-brand-topbar">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <button onclick="openModal()"
+                    class="bg-brand-orange hover:bg-brand-orange-hover text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:scale-105 whitespace-nowrap">
+                POSTAR ANÚNCIO (Grátis)
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl relative">
+        <!-- Decorative paws pattern background element -->
+        <div class="absolute inset-0 bg-paw-pattern opacity-10 pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row justify-between items-end mb-6 border-b border-gray-200 pb-2 relative z-10">
+            <h3 class="text-2xl font-bold text-gray-800">
+                <span class="text-brand-orange">PERDIDOS</span> E <span class="text-status-found">ENCONTRADOS</span> RECENTES
+            </h3>
+            <div class="flex gap-2 mt-4 md:mt-0">
+                <button class="bg-teal-600 text-white p-2 rounded hover:bg-teal-700 transition"><i class="fas fa-th-large"></i></button>
+                <button class="bg-gray-200 text-gray-600 p-2 rounded hover:bg-gray-300 transition"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+
+        <!-- Grid Container for Javascript injection -->
+        <div id="mural-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative z-10">
+            <!-- Cards will be injected here via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Modal Formulário -->
+    <div id="ad-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex justify-center items-center backdrop-blur-sm p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
+
+            <!-- Modal Header -->
+            <div class="bg-brand-hero text-gray-800 px-6 py-4 flex justify-between items-center border-b border-gray-300">
+                <h3 class="text-xl font-bold"><i class="fas fa-bullhorn mr-2"></i> Cadastrar Anúncio</h3>
+                <button onclick="closeModal()" class="text-gray-600 hover:text-red-600 text-2xl font-bold leading-none">&times;</button>
+            </div>
+
+            <!-- Modal Body (Form) -->
+            <div class="p-6 overflow-y-auto">
+                <form id="ad-form" class="space-y-4">
+
+                    <!-- Status Selection -->
+                    <div class="flex gap-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <label class="flex-1 flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-white transition">
+                            <input type="radio" name="status" value="perdido" required class="w-4 h-4 text-brand-orange focus:ring-brand-orange">
+                            <span class="font-bold text-status-lost">Animal Perdido</span>
+                        </label>
+                        <label class="flex-1 flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-white transition">
+                            <input type="radio" name="status" value="visto" required class="w-4 h-4 text-status-found focus:ring-status-found">
+                            <span class="font-bold text-status-found">Animal Visto/Encontrado</span>
+                        </label>
+                    </div>
+
+                    <!-- Nome do Animal -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Nome do Animal <span class="text-xs text-gray-500 font-normal">(se souber)</span></label>
+                        <input type="text" id="animalName" placeholder="Ex: Rex, Luna..." class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-hero focus:border-transparent">
+                    </div>
+
+                    <!-- Localização -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Onde foi visto/perdido? *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" id="location" required placeholder="Ex: Bairro Centro, São Paulo/SP" class="w-full border border-gray-300 rounded-lg py-2.5 pl-10 pr-3 focus:ring-2 focus:ring-brand-hero focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">URL da Imagem do Animal *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-image"></i></span>
+                            <input type="url" id="imageUrl" required placeholder="https://exemplo.com/foto.jpg" class="w-full border border-gray-300 rounded-lg py-2.5 pl-10 pr-3 focus:ring-2 focus:ring-brand-hero focus:border-transparent">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Cole o link (URL) de uma foto válida.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Nome Responsável -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Seu Nome *</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-user"></i></span>
+                                <input type="text" id="responsibleName" required placeholder="Seu nome" class="w-full border border-gray-300 rounded-lg py-2.5 pl-10 pr-3 focus:ring-2 focus:ring-brand-hero focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <!-- Telefone -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Seu Telefone *</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-phone"></i></span>
+                                <input type="tel" id="phone" required placeholder="(00) 00000-0000" class="w-full border border-gray-300 rounded-lg py-2.5 pl-10 pr-3 focus:ring-2 focus:ring-brand-hero focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 text-gray-600 font-semibold hover:bg-gray-200 rounded-lg transition">Cancelar</button>
+                <button onclick="submitForm()" class="px-6 py-2 bg-brand-orange hover:bg-brand-orange-hover text-white font-bold rounded-lg shadow transition">
+                    Publicar Cartaz
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-nav py-6 text-center text-sm text-gray-700 border-t border-gray-200 mt-auto relative z-10">
+        <div class="flex justify-center gap-4 mb-2 font-medium">
+            <a href="#" class="hover:text-brand-orange transition">Sobre Nós</a>
+            <a href="#" class="hover:text-brand-orange transition">Contato</a>
+            <a href="#" class="hover:text-brand-orange transition">Termos</a>
+            <span class="text-gray-400">|</span>
+            <span>Redes Sociais:
+                <a href="#" class="text-gray-600 hover:text-black ml-1"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-600 hover:text-black ml-1"><i class="fab fa-facebook"></i></a>
+            </span>
+        </div>
+        <p>&copy; 2024 Rede Animal - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Initial state data representing the grid items
+        let adsData = [
+            {
+                id: 1,
+                status: 'perdido',
+                animalName: 'BENTO (Golden Retriever)',
+                location: 'Curitiba/PR',
+                date: '12/10',
+                imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=400&h=300',
+                phone: '(41) 99999-0001'
+            },
+            {
+                id: 2,
+                status: 'visto',
+                animalName: 'Vira-lata (SRD)', // Often unknown if just seen
+                location: 'São Paulo/SP',
+                date: '14/10',
+                imageUrl: 'https://images.unsplash.com/photo-1537151608804-ea6f23c360fb?auto=format&fit=crop&q=80&w=400&h=300',
+                phone: '(11) 98888-0002'
+            },
+            {
+                id: 3,
+                status: 'perdido',
+                animalName: 'LUNA',
+                location: 'Campinas/SP',
+                date: '15/10',
+                imageUrl: 'https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&q=80&w=400&h=300',
+                phone: '(19) 97777-0003'
+            },
+            {
+                id: 4,
+                status: 'visto',
+                animalName: 'Vira-lata (SRD)',
+                location: 'Rio de Janeiro/RJ',
+                date: '16/10',
+                imageUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400&h=300',
+                phone: '(21) 96666-0004'
+            }
+        ];
+
+        // Function to render the cards based on current state
+        function renderCards() {
+            const grid = document.getElementById('mural-grid');
+            grid.innerHTML = ''; // Clear existing content
+
+            if (adsData.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Nenhum animal cadastrado ainda.</p>';
+                return;
+            }
+
+            adsData.forEach(ad => {
+                const isLost = ad.status === 'perdido';
+                const tagColor = isLost ? 'bg-status-lost' : 'bg-status-found';
+                const tagText = isLost ? 'Perdido' : 'Status: Visto';
+
+                // Fallback image handling just in case
+                const bgImage = ad.imageUrl ? ad.imageUrl : 'https://placehold.co/400x300/e2e8f0/64748b?text=Sem+Foto';
+
+                const cardHTML = `
+                    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 flex flex-col h-full group">
+
+                        <!-- Image Container -->
+                        <div class="relative h-48 sm:h-56 overflow-hidden bg-gray-200">
+                            <img src="${bgImage}" alt="${ad.animalName || 'Animal'}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Erro+na+Imagem'">
+
+                            <!-- Tags -->
+                            <div class="absolute top-3 left-3 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">Foto</div>
+                            <div class="absolute top-3 right-3 ${tagColor} text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                                ${tagText}
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 flex-grow flex flex-col">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2 line-clamp-1">Nome: <span class="font-normal text-gray-600">${ad.animalName || 'Não identificado'}</span></h4>
+
+                            <div class="text-sm text-gray-600 space-y-1 mb-4 flex-grow">
+                                <p><i class="fas fa-map-marker-alt w-5 text-center text-gray-400"></i> <strong class="text-gray-700">${isLost ? 'Perdido' : 'Encontrado'} em:</strong> <span class="line-clamp-1 inline">${ad.location}</span></p>
+                                <p><i class="fas fa-calendar-alt w-5 text-center text-gray-400"></i> <strong class="text-gray-700">Data:</strong> ${ad.date}</p>
+                                <p><i class="fas fa-envelope w-5 text-center text-gray-400"></i> <strong class="text-gray-700">Contato:</strong> <a href="#" class="text-teal-600 hover:underline">Ver Mais</a></p>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex gap-2 mt-auto">
+                                <button onclick="showContact('${ad.phone}')" class="flex-1 bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-bold py-2 px-3 rounded shadow transition text-center">
+                                    Ver Detalhes
+                                </button>
+                                <button class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2 px-3 rounded shadow-sm border border-gray-200 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-share-alt"></i> Compartilhar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        const modal = document.getElementById('ad-modal');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.getElementById('ad-form').reset(); // Clear form on close
+        }
+
+        // Close modal if clicking outside the form area
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Add CSS for simple fade in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .animate-fadeIn {
+                animation: fadeIn 0.2s ease-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.95); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Simple custom alert equivalent using a custom UI element
+        function showMessage(msg) {
+            const msgBox = document.createElement('div');
+            msgBox.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg z-[60] animate-fadeIn transition-opacity duration-300';
+            msgBox.innerHTML = `<i class="fas fa-info-circle mr-2 text-brand-orange"></i> ${msg}`;
+            document.body.appendChild(msgBox);
+
+            setTimeout(() => {
+                msgBox.style.opacity = '0';
+                setTimeout(() => msgBox.remove(), 300);
+            }, 3000);
+        }
+
+        function showContact(phone) {
+            showMessage(`Telefone de contato: ${phone}`);
+        }
+
+        // Handle form submission
+        function submitForm() {
+            const form = document.getElementById('ad-form');
+
+            // Basic HTML5 validation check
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Gather data
+            const statusNode = document.querySelector('input[name="status"]:checked');
+            if(!statusNode) {
+                showMessage("Por favor, selecione se o animal está perdido ou foi visto.");
+                return;
+            }
+
+            const status = statusNode.value;
+            let animalName = document.getElementById('animalName').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const imageUrl = document.getElementById('imageUrl').value.trim();
+            const responsibleName = document.getElementById('responsibleName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if(!animalName && status === 'visto') {
+                animalName = 'Animal Encontrado (Sem identificação)';
+            } else if (!animalName && status === 'perdido') {
+                animalName = 'Desconhecido';
+            }
+
+            // Create new ad object
+            const newAd = {
+                id: Date.now(), // simple unique id
+                status: status,
+                animalName: animalName.toUpperCase(),
+                location: location,
+                imageUrl: imageUrl,
+                phone: phone,
+                // generate a simple current date format dd/mm
+                date: new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'})
+            };
+
+            // Add to state array at the beginning
+            adsData.unshift(newAd);
+
+            // Update UI
+            renderCards();
+            closeModal();
+            showMessage("Cartaz publicado com sucesso!");
+        }
+
+        // Initialize the app by rendering existing cards
+        window.onload = () => {
+            renderCards();
+        };
+    </script>
+</body>
+</html>
