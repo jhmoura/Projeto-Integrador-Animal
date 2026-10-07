@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab18e628-0709-4e17-b0a4-1662b92c5440" name="Changes" comment="requirements">
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+    <list default="true" id="ab18e628-0709-4e17-b0a4-1662b92c5440" name="Changes" comment="Configurações básicas e html padrão">
+      <change afterPath="$PROJECT_DIR$/core/static/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projeto_integrador_animal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/projeto_integrador_animal/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="154" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -25,22 +30,85 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jhmoura"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jhmoura&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/jhmoura/Projeto-Integrador-Animal.git",
-    "accountId": "f40c0cff-ce20-41ae-9a51-f63553d84269"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jhmoura/Projeto-Integrador-Animal.git&quot;,
+    &quot;accountId&quot;: &quot;f40c0cff-ce20-41ae-9a51-f63553d84269&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7,
-  "fromUser": false
-}]]></component>
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.000000000000646" />
+      <entry key="S30" value="1.0001371632378366" />
+      <entry key="S60" value="1.0165619961413999" />
+      <entry key="M2" value="1.1819977593405717" />
+      <entry key="M5" value="1.766731211913887" />
+      <entry key="M10" value="2.2383298945570793" />
+      <entry key="M15" value="2.4528948679716884" />
+      <entry key="M30" value="2.7046376215927537" />
+      <entry key="H1" value="2.8464222569044892" />
+      <entry key="H2" value="2.9216775194577904" />
+      <entry key="H4" value="2.9604476612258144" />
+      <entry key="D1" value="2.993352958486115" />
+      <entry key="W1" value="2.9990490672999996" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.05671994720732255" />
+      <entry key="MS500" value="0.5633096142486396" />
+      <entry key="S2" value="0.8663368564000873" />
+      <entry key="S5" value="0.9442233072222145" />
+      <entry key="S10" value="0.9717115349852339" />
+      <entry key="S30" value="0.990613103635042" />
+      <entry key="S60" value="1.0115318797525694" />
+      <entry key="M2" value="1.1781778917858348" />
+      <entry key="M5" value="1.7633535950361192" />
+      <entry key="M10" value="2.2358936986411124" />
+      <entry key="M15" value="2.4510438647532076" />
+      <entry key="M30" value="2.703578972587707" />
+      <entry key="H1" value="2.8458554255529145" />
+      <entry key="H2" value="2.921384148425458" />
+      <entry key="H4" value="2.9602984110970763" />
+      <entry key="D1" value="2.9933277206706865" />
+      <entry key="W1" value="2.999045452925869" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3KNSCP4axgnpTD1ZN8nGKvsSANa" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,13 +118,14 @@
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -111,7 +180,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1791396404625</updated>
-      <workItem from="1791396405616" duration="3203000" />
+      <workItem from="1791396405616" duration="4038000" />
+      <workItem from="1791400866513" duration="1612000" />
     </task>
     <task id="LOCAL-00001" summary="requirements">
       <option name="closed" value="true" />
@@ -121,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791396644355</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Configurações básicas e html padrão">
+      <option name="closed" value="true" />
+      <created>1791399796601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1791399796601</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,17 +207,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="requirements" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/projeto_integrador_animal/urls.py</url>
-          <line>16</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Configurações básicas e html padrão" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configurações básicas e html padrão" />
   </component>
 </project>
