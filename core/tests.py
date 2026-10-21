@@ -50,6 +50,21 @@ class AdViewTests(TestCase):
         self.assertContains(response, 'data-phone="(41) 99999-0000"')
         self.assertEqual(response.context['ads'][0]['id'], ad.id)
 
+    @override_settings(GOOGLE_MAPS_API_KEY='maps-test-key')
+    def test_index_loads_google_places_autocomplete_when_configured(self):
+        response = self.client.get(reverse('index'))
+
+        self.assertContains(response, 'maps-test-key')
+        self.assertContains(response, 'libraries=places')
+        self.assertContains(response, 'initLocationAutocomplete')
+
+    @override_settings(GOOGLE_MAPS_API_KEY='')
+    def test_index_keeps_location_field_without_maps_key(self):
+        response = self.client.get(reverse('index'))
+
+        self.assertContains(response, 'name="location"')
+        self.assertNotContains(response, 'maps.googleapis.com/maps/api/js')
+
     def test_create_ad_persists_valid_submission(self):
         response = self.client.post(
             reverse('create_ad'),

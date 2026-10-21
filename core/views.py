@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.conf import settings
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import redirect, render
 
@@ -23,7 +24,10 @@ def _render_index(request):
         }
         for ad in Ad.objects.all()
     ]
-    return render(request, 'index.html', {'ads': ads})
+    return render(request, 'index.html', {
+        'ads': ads,
+        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
+    })
 
 
 def index(request):

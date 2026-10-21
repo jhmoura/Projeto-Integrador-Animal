@@ -9,6 +9,28 @@
             })[character]);
         }
 
+        function initLocationAutocomplete() {
+            const locationInput = document.getElementById('location');
+            if (!locationInput || !google.maps.places) {
+                return;
+            }
+
+            const autocomplete = new google.maps.places.Autocomplete(locationInput, {
+                types: ['geocode'],
+                componentRestrictions: { country: 'br' },
+                fields: ['formatted_address']
+            });
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place.formatted_address) {
+                    locationInput.value = place.formatted_address;
+                }
+            });
+        }
+
+        window.initLocationAutocomplete = initLocationAutocomplete;
+
         document.getElementById('mural-grid').addEventListener('click', event => {
             const button = event.target.closest('[data-phone]');
             if (button) {
