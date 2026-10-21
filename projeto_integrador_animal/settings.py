@@ -77,12 +77,27 @@ WSGI_APPLICATION = 'projeto_integrador_animal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# SQLite3
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': os.environ.get(
+#            'DB_ENGINE',
+#            'django.db.backends.postgresql',
+#        ),
+#        'NAME': os.environ.get('DB_NAME', 'rede_animal'),
+#        'USER': os.environ.get('DB_USER', 'postgres'),
+#        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+#        'HOST': os.environ.get('DB_HOST', 'localhost'),
+#        'PORT': os.environ.get('DB_PORT', '5432'),
+#    }
+#}
 
 
 # Password validation
@@ -128,7 +143,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Arquivos de mídia (Uploads feitos por usuários)
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
